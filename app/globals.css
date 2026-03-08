@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --page-top: #071713;
+  --page-bottom: #04110d;
+  --panel: rgba(9, 24, 20, 0.82);
+  --panel-strong: rgba(11, 31, 26, 0.95);
+  --panel-border: rgba(255, 255, 255, 0.09);
+  --text-main: #eefbf4;
+  --text-soft: rgba(238, 251, 244, 0.68);
+  --text-muted: rgba(238, 251, 244, 0.48);
+  --mint: #b9ffdf;
+  --mint-strong: #76e4bc;
+  --warm: #ffd5a1;
+  --danger: #ff8a7a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(126, 237, 194, 0.18), transparent 32%),
+    radial-gradient(circle at 85% 15%, rgba(255, 213, 161, 0.16), transparent 24%),
+    linear-gradient(180deg, var(--page-top), var(--page-bottom));
+  color: var(--text-main);
+  font-family: var(--font-body), sans-serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(circle at center, black 35%, transparent 85%);
+  opacity: 0.18;
+}
+
+main {
+  position: relative;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(238, 251, 244, 0.35);
+}
+
+@layer base {
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply rounded-[28px] border border-white/10 bg-white/5 shadow-[0_24px_80px_rgba(0,0,0,0.22)] backdrop-blur-xl;
+  }
+
+  .eyebrow {
+    @apply text-xs uppercase tracking-[0.26em] text-[#94cdb7];
+  }
+
+  .section-title {
+    @apply font-display text-3xl text-white sm:text-4xl;
+  }
+
+  .field-shell {
+    @apply w-full rounded-[22px] border border-white/10 bg-[#091a15] px-4 py-3 text-white transition focus:border-[#76e4bc] focus:outline-none;
+  }
+}
