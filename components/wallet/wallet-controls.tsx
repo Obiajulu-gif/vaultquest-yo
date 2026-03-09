@@ -11,6 +11,7 @@ import { truncateAddress } from "@/lib/utils";
 import { useHydrated } from "@/hooks/use-hydrated";
 
 export function WalletControls() {
+  const walletDetectionMs = 4_000;
   const hydrated = useHydrated();
   const chainId = useChainId();
   const { address, isConnected } = useAccount();
@@ -20,6 +21,7 @@ export function WalletControls() {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [pendingConnectorId, setPendingConnectorId] = useState<string | null>(null);
+  const [walletDetectionTimedOut, setWalletDetectionTimedOut] = useState(false);
 
   useEffect(() => {
     if (!copied) {
@@ -47,6 +49,16 @@ export function WalletControls() {
     [connectors],
   );
 
+  useEffect(() => {
+    if (!open || availableConnectors.length > 0) {
+      setWalletDetectionTimedOut(false);
+      return undefined;
+    }
+
+    const timeout = window.setTimeout(() => setWalletDetectionTimedOut(true), walletDetectionMs);
+    return () => window.clearTimeout(timeout);
+  }, [availableConnectors.length, open, walletDetectionMs]);
+
   if (!hydrated) {
     return (
       <Button variant="secondary" className="min-w-[148px] justify-center" disabled>
@@ -66,7 +78,9 @@ export function WalletControls() {
           <div className="space-y-3">
             {availableConnectors.length === 0 ? (
               <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/70">
-                No injected wallet was detected in this browser. Open the site in a browser with MetaMask, Rabby, Coinbase Wallet, or another injected wallet extension.
+                {walletDetectionTimedOut
+                  ? "No injected wallet was detected in this browser. Open the site in a browser with MetaMask, Rabby, Coinbase Wallet, or another injected wallet extension."
+                  : "Looking for an injected wallet..."}
               </div>
             ) : null}
             {availableConnectors.map((connector) => (

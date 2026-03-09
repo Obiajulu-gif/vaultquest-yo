@@ -7,7 +7,12 @@ import { env } from "@/lib/env";
 export const wagmiConfig = createConfig({
   ssr: true,
   chains: supportedChains,
-  connectors: [injected({ shimDisconnect: true })],
+  connectors: [
+    injected({
+      shimDisconnect: true,
+      unstable_shimAsyncInject: 4_000,
+    }),
+  ],
   multiInjectedProviderDiscovery: true,
   transports: {
     1: http(env.rpcUrls.ethereum),
