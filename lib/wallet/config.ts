@@ -5,7 +5,8 @@ import { supportedChains } from "@/lib/chains";
 import { env } from "@/lib/env";
 
 export const wagmiConfig = createConfig({
-  ssr: true,
+  // Client-side discovery is more reliable for injected wallets and EIP-6963 providers.
+  ssr: false,
   chains: supportedChains,
   connectors: [
     injected({
