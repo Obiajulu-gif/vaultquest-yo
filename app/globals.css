@@ -74,7 +74,23 @@ textarea::placeholder {
 
 @layer components {
   .glass-panel {
-    @apply rounded-[28px] border border-white/10 bg-white/5 shadow-[0_24px_80px_rgba(0,0,0,0.22)] backdrop-blur-xl;
+    @apply min-w-0 rounded-[28px] border border-white/10 bg-white/5 shadow-[0_24px_80px_rgba(0,0,0,0.22)] backdrop-blur-xl;
+  }
+
+  .panel-pad {
+    @apply p-4 sm:p-5 lg:p-6;
+  }
+
+  .panel-pad-compact {
+    @apply p-4 lg:p-5;
+  }
+
+  .page-shell {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .page-stack {
+    @apply py-6 sm:py-8 lg:py-10;
   }
 
   .eyebrow {

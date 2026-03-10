@@ -11,14 +11,17 @@ const notes = [
 
 export function RiskPanel({ compact = false }: RiskPanelProps) {
   return (
-    <section className="glass-panel h-full p-8">
+    <section className={`glass-panel h-full ${compact ? "panel-pad-compact" : "panel-pad"}`}>
       <div className="eyebrow">Risk and trust</div>
-      <h2 className={`mt-4 font-display text-white ${compact ? "text-3xl" : "text-4xl"}`}>
+      <h2 className={`font-display text-white ${compact ? "mt-3 text-2xl sm:text-3xl" : "mt-4 text-4xl"}`}>
         Tasteful warnings, not buried disclaimers.
       </h2>
-      <div className="mt-6 space-y-3">
+      <div className={compact ? "mt-5 space-y-2.5" : "mt-6 space-y-3"}>
         {notes.map((note) => (
-          <div key={note} className="rounded-[22px] border border-white/8 bg-[#081a15] px-4 py-4 text-sm leading-7 text-white/65">
+          <div
+            key={note}
+            className={`rounded-[22px] border border-white/8 bg-[#081a15] text-sm text-white/65 ${compact ? "px-4 py-3 leading-6" : "px-4 py-4 leading-7"}`}
+          >
             {note}
           </div>
         ))}

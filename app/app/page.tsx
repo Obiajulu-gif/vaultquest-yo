@@ -6,7 +6,7 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen">
       <SiteHeader />
-      <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <main className="page-shell page-stack">
         <SavingsDashboard />
       </main>
       <SiteFooter />

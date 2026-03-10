@@ -11,9 +11,9 @@ interface SiteHeaderProps {
 export function SiteHeader({ showDashboardLink = true }: SiteHeaderProps) {
   return (
     <header className="sticky top-0 z-40 border-b border-white/8 bg-[#071713]/70 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+      <div className="page-shell flex flex-wrap items-center justify-between gap-3 py-3 sm:flex-nowrap sm:gap-4 sm:py-4">
         <Logo />
-        <div className="flex items-center gap-3">
+        <div className="flex w-full flex-wrap items-center justify-end gap-3 sm:w-auto sm:flex-nowrap">
           {showDashboardLink ? (
             <Link href="/app" className="hidden md:block">
               <Button variant="ghost">Dashboard</Button>

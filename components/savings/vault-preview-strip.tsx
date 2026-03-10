@@ -14,12 +14,12 @@ export function VaultPreviewStrip() {
     .slice(0, 3);
 
   return (
-    <section className="glass-panel overflow-hidden p-8">
+    <section className="glass-panel panel-pad overflow-hidden">
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
           <div className="eyebrow">Live vault preview</div>
           <h2 className="section-title mt-3">YO inventory the judges can verify.</h2>
-          <p className="mt-3 max-w-2xl text-sm leading-7 text-white/60">
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-white/60">
             Vault cards below come from the live YO catalog. Deposit and redeem actions stay inside the dashboard so the core path is short enough for a demo.
           </p>
         </div>
@@ -27,35 +27,35 @@ export function VaultPreviewStrip() {
           Open live dashboard
         </Link>
       </div>
-      <div className="mt-8 grid gap-4 lg:grid-cols-3">
+      <div className="mt-6 grid gap-3 lg:grid-cols-3">
         {isLoading
           ? Array.from({ length: 3 }).map((_, index) => (
-              <div key={index} className="rounded-[26px] border border-white/10 bg-[#081a15] p-6">
+              <div key={index} className="min-w-0 rounded-[26px] border border-white/10 bg-[#081a15] p-4 lg:p-5">
                 <div className="h-4 w-20 rounded-full bg-white/10" />
                 <div className="mt-4 h-8 w-40 rounded-full bg-white/10" />
                 <div className="mt-6 h-16 rounded-[20px] bg-white/10" />
               </div>
             ))
           : preview.map((vault) => (
-              <div key={vault.key} className="rounded-[26px] border border-white/10 bg-[#081a15] p-6">
+              <div key={vault.key} className="min-w-0 rounded-[26px] border border-white/10 bg-[#081a15] p-4 lg:p-5">
                 <div className="flex items-center justify-between gap-3">
                   <span className="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.2em] text-white/55">
                     {vault.chain.name}
                   </span>
                   <span className="text-sm text-[#b9ffdf]">{formatPercent(vault.yield["30d"])}</span>
                 </div>
-                <h3 className="mt-5 font-display text-2xl text-white">{vault.name}</h3>
-                <p className="mt-2 text-sm text-white/60">
+                <h3 className="mt-4 break-words font-display text-xl text-white sm:text-2xl">{vault.name}</h3>
+                <p className="mt-2 text-sm leading-6 text-white/60">
                   Save {vault.asset.symbol} on {vault.chain.name} with live vault state and chain-aware wallet handling.
                 </p>
-                <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
-                  <div className="rounded-[20px] border border-white/8 bg-white/5 px-4 py-3">
+                <div className="mt-5 grid gap-3 text-sm sm:grid-cols-2">
+                  <div className="min-w-0 rounded-[20px] border border-white/8 bg-white/5 px-4 py-3">
                     <div className="text-white/45">TVL</div>
-                    <div className="mt-1 font-medium text-white">{vault.tvl.formatted} {vault.asset.symbol}</div>
+                    <div className="mt-1 break-words font-medium text-white">{vault.tvl.formatted} {vault.asset.symbol}</div>
                   </div>
-                  <div className="rounded-[20px] border border-white/8 bg-white/5 px-4 py-3">
+                  <div className="min-w-0 rounded-[20px] border border-white/8 bg-white/5 px-4 py-3">
                     <div className="text-white/45">Route</div>
-                    <div className="mt-1 font-medium text-white">{vault.route}</div>
+                    <div className="mt-1 break-words font-medium text-white">{vault.route}</div>
                   </div>
                 </div>
               </div>
