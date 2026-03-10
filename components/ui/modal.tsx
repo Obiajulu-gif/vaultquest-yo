@@ -42,7 +42,7 @@ export function Modal({ open, onClose, title, subtitle, children, className }: M
   }
 
   return createPortal(
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#04110d]/80 px-4 py-6 backdrop-blur-md">
+    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-[#04110d]/80 px-4 py-4 backdrop-blur-md sm:items-center sm:py-6">
       <div
         className="absolute inset-0"
         aria-hidden="true"
@@ -50,14 +50,14 @@ export function Modal({ open, onClose, title, subtitle, children, className }: M
       />
       <div
         className={cn(
-          "relative z-10 w-full max-w-2xl rounded-[28px] border border-white/10 bg-[#081814]/95 p-6 shadow-[0_40px_120px_rgba(0,0,0,0.45)]",
+          "relative z-10 my-auto max-h-[calc(100vh-2rem)] w-full max-w-2xl overflow-y-auto rounded-[28px] border border-white/10 bg-[#081814]/95 p-4 shadow-[0_40px_120px_rgba(0,0,0,0.45)] sm:p-6",
           className,
         )}
       >
         <div className="mb-5 flex items-start justify-between gap-4">
-          <div>
-            <h2 className="font-display text-2xl text-white">{title}</h2>
-            {subtitle ? <p className="mt-2 text-sm text-white/60">{subtitle}</p> : null}
+          <div className="min-w-0">
+            <h2 className="break-words font-display text-2xl text-white">{title}</h2>
+            {subtitle ? <p className="mt-2 break-words text-sm text-white/60">{subtitle}</p> : null}
           </div>
           <button
             type="button"

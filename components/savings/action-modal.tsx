@@ -196,10 +196,11 @@ export function SavingsActionModal({
       onClose={onClose}
       title={venue ? `${mode === "deposit" ? "Deposit into" : "Redeem from"} ${venue.name}` : "Transaction"}
       subtitle={venue ? `${venue.asset.symbol} on ${venue.chain.name}. Review the chain and amount before signing.` : undefined}
+      className="max-w-4xl"
     >
       {!venue ? null : (
-        <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="space-y-5">
+        <div className="grid gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+          <div className="min-w-0 space-y-5">
             <div className="grid gap-3 sm:grid-cols-2">
               <Fact label="Vault" value={venue.name} />
               <Fact label="Route" value={`${venue.route} on ${venue.chain.name}`} />
@@ -207,16 +208,16 @@ export function SavingsActionModal({
               <Fact label="Wallet" value={address ? `${address.slice(0, 6)}...${address.slice(-4)}` : "Disconnected"} />
             </div>
 
-            <div>
+            <div className="rounded-[24px] border border-white/10 bg-[#091a15] p-4">
               <label className="mb-3 block text-sm font-medium text-white">Amount</label>
-              <div className="rounded-[26px] border border-white/10 bg-[#091a15] p-4">
-                <div className="flex items-center gap-3">
-                  <input
-                    value={amount}
-                    onChange={(event) => setAmount(event.target.value)}
-                    placeholder="0.00"
-                    className="min-w-0 flex-1 bg-transparent text-3xl font-display text-white outline-none"
-                  />
+              <div className="flex flex-col gap-3">
+                <input
+                  value={amount}
+                  onChange={(event) => setAmount(event.target.value)}
+                  placeholder="0.00"
+                  className="min-w-0 w-full bg-transparent text-3xl font-display text-white outline-none"
+                />
+                <div className="flex flex-wrap items-center justify-between gap-3">
                   <button
                     type="button"
                     onClick={() =>
@@ -229,22 +230,20 @@ export function SavingsActionModal({
                     }
                     className="rounded-full border border-white/10 px-3 py-2 text-xs uppercase tracking-[0.22em] text-[#94cdb7] transition hover:border-white/20"
                   >
-                    Max
+                    Use max
                   </button>
-                </div>
-                <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-sm text-white/55">
-                  <span>
+                  <span className="text-sm text-white/55">
                     {mode === "deposit" ? "Wallet balance" : "Redeemable balance"}: {formatTokenFromUnits(
                       mode === "deposit" ? walletAssetBalance : positionAssets,
                       venue.asset.decimals,
                     )} {venue.asset.symbol}
                   </span>
-                  {mode === "redeem" ? (
-                    <span>
-                      Shares held: {formatTokenFromUnits(positionShares, venue.shareAsset.decimals)} {venue.shareAsset.symbol}
-                    </span>
-                  ) : null}
                 </div>
+                {mode === "redeem" ? (
+                  <div className="text-sm text-white/55">
+                    Shares held: {formatTokenFromUnits(positionShares, venue.shareAsset.decimals)} {venue.shareAsset.symbol}
+                  </div>
+                ) : null}
               </div>
             </div>
 
@@ -262,9 +261,9 @@ export function SavingsActionModal({
             </div>
           </div>
 
-          <div className="space-y-4">
+          <div className="min-w-0 space-y-4">
             <div className="rounded-[24px] border border-white/10 bg-[#081a15] p-4">
-              <div className="text-xs uppercase tracking-[0.22em] text-white/45">Preview</div>
+              <div className="text-xs uppercase tracking-[0.22em] text-white/45">Execution preview</div>
               <div className="mt-3 space-y-3 text-sm text-white/68">
                 <PreviewRow
                   label={mode === "deposit" ? "Estimated shares" : "Estimated shares burned"}
@@ -278,10 +277,7 @@ export function SavingsActionModal({
                 />
                 <PreviewRow label="Current chain" value={unsupportedChain ? "Unsupported" : String(chainId ?? "Not connected")} />
                 <PreviewRow label="Target chain" value={`${venue.chain.id} (${venue.chain.name})`} />
-                <PreviewRow
-                  label="Network handling"
-                  value={networkMismatch ? "Wallet switch required" : "Ready on current network"}
-                />
+                <PreviewRow label="Network handling" value={networkMismatch ? "Wallet switch required" : "Ready on current network"} />
               </div>
             </div>
 
@@ -330,11 +326,11 @@ export function SavingsActionModal({
               </div>
             ) : null}
 
-            <div className="flex gap-3">
-              <Button variant="secondary" className="flex-1" onClick={onClose}>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Button variant="secondary" className="min-w-0 flex-1" onClick={onClose}>
                 Close
               </Button>
-              <Button className="flex-1" onClick={() => void handleSubmit()} disabled={isWorking || !venue || !isConnected}>
+              <Button className="min-w-0 flex-1" onClick={() => void handleSubmit()} disabled={isWorking || !venue || !isConnected}>
                 {mode === "deposit" ? "Submit deposit" : "Submit redeem"}
               </Button>
             </div>
@@ -350,18 +346,18 @@ export function SavingsActionModal({
 
 function Fact({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-[20px] border border-white/8 bg-white/5 px-4 py-3">
+    <div className="min-w-0 rounded-[20px] border border-white/8 bg-white/5 px-4 py-3">
       <div className="text-xs uppercase tracking-[0.22em] text-white/40">{label}</div>
-      <div className="mt-2 text-sm font-medium text-white">{value}</div>
+      <div className="mt-2 break-words text-sm font-medium text-white">{value}</div>
     </div>
   );
 }
 
 function PreviewRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-start justify-between gap-4 border-b border-white/6 pb-3 last:border-b-0 last:pb-0">
+    <div className="flex flex-col gap-1 border-b border-white/6 pb-3 last:border-b-0 last:pb-0 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
       <span className="text-white/45">{label}</span>
-      <span className={cn("text-right text-white", value === "Enter an amount" && "text-white/45")}>{value}</span>
+      <span className={cn("min-w-0 break-words text-left text-white sm:text-right", value === "Enter an amount" && "text-white/45")}>{value}</span>
     </div>
   );
 }

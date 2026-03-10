@@ -132,7 +132,7 @@ export function WalletControls() {
 
   if (!hydrated) {
     return (
-      <Button variant="secondary" className="min-w-[148px] justify-center" disabled>
+      <Button variant="secondary" className="w-full min-w-0 justify-center sm:w-auto sm:min-w-[148px]" disabled>
         Loading wallet
       </Button>
     );
@@ -141,7 +141,7 @@ export function WalletControls() {
   if (!isConnected || !address) {
     return (
       <>
-        <Button onClick={handleOpen} className="min-w-[148px] justify-center gap-2">
+        <Button onClick={handleOpen} className="w-full min-w-0 justify-center gap-2 sm:w-auto sm:min-w-[148px]">
           <Wallet className="h-4 w-4" />
           Connect wallet
         </Button>
@@ -192,8 +192,8 @@ export function WalletControls() {
   }
 
   return (
-    <div className="flex flex-wrap items-center justify-end gap-3">
-      <div className="rounded-full border border-white/10 bg-white/6 px-4 py-2 text-right">
+    <div className="flex w-full flex-wrap items-center justify-end gap-3 sm:w-auto">
+      <div className="min-w-0 max-w-full rounded-full border border-white/10 bg-white/6 px-4 py-2 text-left sm:text-right">
         <div className="text-xs uppercase tracking-[0.22em] text-white/45">
           {isSupportedAppChain(chainId) ? getChainLabel(chainId) : "Unsupported chain"}
         </div>
@@ -218,7 +218,7 @@ export function WalletControls() {
       >
         <Copy className="h-4 w-4" />
       </button>
-      <Button variant="secondary" onClick={() => disconnect()} className="gap-2">
+      <Button variant="secondary" onClick={() => disconnect()} className="min-w-0 gap-2">
         <LogOut className="h-4 w-4" />
         Disconnect
       </Button>
